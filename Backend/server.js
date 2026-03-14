@@ -3,8 +3,11 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 
-dotenv.config();
+const orderRoutes = require("./routes/orderRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 
+dotenv.config();
 connectDB();
 
 const app = express();
@@ -15,6 +18,10 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Server đang chạy với MongoDB Atlas");
 });
+
+app.use("/api/orders", orderRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/payment", paymentRoutes);
 
 const PORT = process.env.PORT || 5000;
 
